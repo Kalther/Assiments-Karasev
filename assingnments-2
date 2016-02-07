@@ -1,0 +1,40 @@
+#! usr/bin/env python
+
+
+"""
+Logical operations, functions, namespaces
+"""
+
+#Task 2 - не знаю, как проверить единственный аргумент-список
+def my_min(args):
+    a = list(args)
+    if not(args.isdight(int) and len(args) > 1):
+        raise ValueError("You can't take a minimum/maximum of such kind of information")
+    return sorted(a)[0]
+
+def my_max(args):
+    a = list(args)
+    if not(args.isdight(int) and len(args) > 1):
+        raise ValueError("You can't take a minimum/maximum of such kind of information")
+    return sorted(a)[-1]
+
+#Task 3
+i = 0
+x = 0
+def my_map(fn, elements):
+    l = list(elements)
+    for x in l:
+        i = i + 1
+    return (x = fn(l[i]))
+
+
+def my_filter(fn, elements):
+    l = list(elements)
+    for x in l:
+        i = i + 1
+    return x if fn(l[i])
+
+
+#Task 4
+def calculate(numbers, operations):
+    
