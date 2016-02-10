@@ -63,6 +63,7 @@ def calculate(numbers, operator):
 
     operation_dict = {
         "+": operator.add,
+        "-": operator.sub,
         "*": operator.mul,
         "/": operator.div
     }
@@ -84,9 +85,11 @@ def evaluate_string(str_calk):
     operator = []
     for arg in str_calk:
         if arg == "+" or arg == "-" or arg == "*" or arg == "/":
-            numbers.append(arg)
-        elif arg.isdigit():
             operator.append(arg)
+        elif arg.isdigit():
+            numbers.append(arg)
+        elif arg == "(" or arg == ")" or arg == " ":
+            continue
         else:
             raise ValueError("Please, enter a valid symbol instead of {}".format(arg))
     return calculate(numbers, operator)
