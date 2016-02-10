@@ -5,36 +5,88 @@
 Logical operations, functions, namespaces
 """
 
-#Task 2 - не знаю, как проверить единственный аргумент-список
+from __future__ import print_function, division
+import operator
+
+# Task 2 - не знаю, как проверить единственный аргумент-список
 def my_min(args):
     a = list(args)
-    if not(args.isdight(int) and len(args) > 1):
+    if not(args.isdight() and len(args) > 1):
         raise ValueError("You can't take a minimum/maximum of such kind of information")
     return sorted(a)[0]
 
-def my_max(args):
-    a = list(args)
-    if not(args.isdight(int) and len(args) > 1):
-        raise ValueError("You can't take a minimum/maximum of such kind of information")
-    return sorted(a)[-1]
+def my_max(*args):
+    if not args:
+       raise ValueError("no arguments pass")
 
-#Task 3
-i = 0
-x = 0
-def my_map(fn, elements):
-    l = list(elements)
-    for x in l:
-        i = i + 1
-    return (x = fn(l[i]))
-
-
-def my_filter(fn, elements):
-    l = list(elements)
-    for x in l:
-        i = i + 1
-    return x if fn(l[i])
+    def find_max(seq):
+        if not isinstance(seq, (tuple, list)):
+           raise ValueError("alarma!!!")
+        current_max = seq[0]
+        for element in seq:
+        if element not isinstance(element, int):
+            raise ValueError("")
+        if current_max < element:
+            current_max = element
+    return current_max
+return find_max(args[0] if len(args) else args)
 
 
-#Task 4
-def calculate(numbers, operations):
-    
+
+# Task
+
+
+
+# Task 3
+def my_map(fn, elements, **kwargs):
+    result = []
+    for element in elements:
+        result.append(fn(element, **kwargs))
+    return result
+
+
+
+def my_filter(fn, elements, **kwargs):
+    result = []
+    for element in elements:
+        if fn(element):
+            result.append(element)
+    return result
+
+
+
+# Task 4
+
+def calculate(numbers, operator):
+    if len(numbers) != len(operator) + 1:
+        raise ValueError("!!!")
+
+    operation_dict = {
+        "+": operator.add,
+        "*": operator.mul,
+        "/": operator.div
+    }
+    numbers_iterator = iter(numbers)
+    acc = next(numbers_iterator)
+    for num, oper in zip(numbers_iterator, operator):
+        oper_func = operation_dict.get(oper)
+        if not oper_func:
+            raise ValueError("Operation {} isn't supported".format(oper))
+        acc = oper_func(acc, num)
+    return acc
+
+
+
+# Task 5
+
+def evaluate_string(str_calk):
+    numbers = []
+    operator = []
+    for arg in str_calk:
+        if arg == "+" or arg == "-" or arg == "*" or arg == "/":
+            numbers.append(arg)
+        elif arg.isdigit():
+            operator.append(arg)
+        else:
+            raise ValueError("Please, enter a valid symbol instead of {}".format(arg))
+    return calculate(numbers, operator)
