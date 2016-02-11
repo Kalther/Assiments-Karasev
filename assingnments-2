@@ -84,25 +84,25 @@ def evaluate_string(str_calk):
     numbers = []
     operator = []
     i = -1
-    j = 0
+    order = 0
     def numberator():
-        x = 0
-        y = 0
-        for arg in str_calk[i-j:i+1]:
-            x = x + (arg * (10**(j-y)))
-            y = y + 1
-        return numbers.append(x)
+        complex_num = 0
+        j = 0
+        for arg in str_calk[i-order:i+1]:
+            complex_num = complex_num + (arg * (10**(order-j)))
+            j = j + 1
+        return numbers.append(complex_num)
     for arg in str_calk:
         i = i + 1
         if arg == "+" or arg == "-" or arg == "*" or arg == "/":
             operator.append(arg)
             numberator()
-            j = 0
+            order = 0
         elif arg.isdigit():
-            j = j + 1
+            order = order + 1
         elif arg == "(" or arg == ")" or arg == " ":
             numberator()
-            j = 0
+            order = 0
             continue
         else:
             raise ValueError("Please, enter a valid symbol instead of {}".format(arg))
