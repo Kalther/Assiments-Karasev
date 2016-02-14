@@ -57,8 +57,8 @@ def my_filter(fn, elements, **kwargs):
 
 # Task 4
 
-def calculate(numbers, operator):
-    if len(numbers) != len(operator) + 1:
+def calculate(numbers, operations):
+    if len(numbers) != len(operations) + 1:
         raise ValueError("!!!")
 
     operation_dict = {
@@ -69,7 +69,7 @@ def calculate(numbers, operator):
     }
     numbers_iterator = iter(numbers)
     acc = next(numbers_iterator)
-    for num, oper in zip(numbers_iterator, operator):
+    for num, oper in zip(numbers_iterator, operations):
         oper_func = operation_dict.get(oper)
         if not oper_func:
             raise ValueError("Operation {} isn't supported".format(oper))
@@ -82,20 +82,20 @@ def calculate(numbers, operator):
 
 def evaluate_string(str_calk):
     numbers = []
-    operator = []
+    operations = []
     i = -1
     order = 0
     def numberator():
         complex_num = 0
         j = 0
         for arg in str_calk[i-order:i+1]:
-            complex_num = complex_num + (arg * (10**(order-j)))
+            complex_num = complex_num + (int(arg) * (10**(order-j)))
             j = j + 1
         return numbers.append(complex_num)
     for arg in str_calk:
         i = i + 1
         if arg == "+" or arg == "-" or arg == "*" or arg == "/":
-            operator.append(arg)
+            operations.append(arg)
             numberator()
             order = 0
         elif arg.isdigit():
@@ -106,5 +106,5 @@ def evaluate_string(str_calk):
             continue
         else:
             raise ValueError("Please, enter a valid symbol instead of {}".format(arg))
-    return calculate(numbers, operator)
-
+        return (numbers, operations, i, numberator())
+    return calculate(int(numbers), operations)
