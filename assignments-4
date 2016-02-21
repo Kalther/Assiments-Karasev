@@ -1,0 +1,43 @@
+#! usr/bin/env python
+
+
+"""
+
+"""
+
+
+from __future__ import print_function, division
+import itertools
+
+
+# Task1
+
+def fact_or_fiction():
+    for n in xrange(0, 1000000):
+        if sum(i for i in xrange(1, n + 1)) != (n*(n + 1)) / 2:
+            raise ValueError("if n = {}, equation isn't correct".format(n))
+    return "correct"
+
+# Task2
+
+def p_distance(a, b):
+    if a != b:
+        raise ValueError("Please, align your sequences first")
+    return sum(i != j for i, j in zip(a, b) if not (i == "-" and j == "-"))/sum(i != "-" and j != "-" for i, j in zip(a, b))
+
+# or if I couldn't break the string
+
+def p_distance_ugly(a, b):
+     if a != b:
+        raise ValueError("Please, align your sequences first")
+     mismatches = 0
+     lenth = len(a)
+     for i, j in zip(a, b):
+         if i == "-" or j == "-":
+             lenth -= 1
+         elif i != j:
+             mismatches += 1
+     return mismatches / lenth
+
+# Task3 is too difficult for me, furthermore I have lost the start of the code (and the main idea) we've done in class
+# I'll try to think about it tomorrow
