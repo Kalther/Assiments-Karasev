@@ -1,0 +1,33 @@
+#! /usr/bin/env
+
+
+from __future__ import print_function, division
+
+
+
+def decompose(n):
+    """
+    : type n: int
+    :param n: int
+    :return:
+    """
+    result = []
+    for iternum in xrange(1, 10**9):
+        result.append(iternum)
+        if sum(result) > n:
+            result.remove(sum(result)-n)
+    return (result)
+
+n = int(raw_input('Input'))
+def main():
+    print("Output" *decompose(n))
+
+
+def test():
+    if n < 1 or n > 10**9:
+        raise ValueError("Please, enter a number between 1 and 1 000 000 000!")
+    if not (n.isdigit()):
+        raise ValueError("Please, enter correct data")
+
+if __name__ == "__main__":
+    main()
